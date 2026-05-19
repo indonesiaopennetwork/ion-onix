@@ -16,6 +16,19 @@ http:
     idle: 30
 pluginManager:
   root: ./plugins
+plugins:
+  otelsetup:
+    id: otelsetup
+    config:
+      serviceName: "beckn-onix"
+      otlpEndpoint: "otel-collector-bpp:4317"
+      enableMetrics: "true"
+      enableTracing: "true"
+      enableLogs: "true"
+      timeInterval: "5"
+      auditFieldsConfig: "/app/config/audit-fields.yaml" # this can be git url
+      producer: "sandbox.open-kitchen.com"
+      producerType: "bpp"
 modules:
   - name: bppTxnReceiver
     path: /bpp/receiver/

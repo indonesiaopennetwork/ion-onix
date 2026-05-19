@@ -28,10 +28,25 @@ services:
       RABBITMQ_ADDR: rabbitmq:5672
       RABBITMQ_USER: admin
       RABBITMQ_PASS: admin123
+      OTEL_EXPORTER_OTLP_INSECURE: true
+      OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector-bap:4317
     volumes:
       - ./config:/app/config
       - ./schemas:/app/schemas
     command: [ "./server", "--config=/app/config/local-simple-bap.yaml" ]
+
+  otel-collector-bap:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector-bap
+    command: ["--config=/etc/otel/config.yaml"]
+    volumes:
+      - ./config/otel-collector-bap/config.yaml:/etc/otel/config.yaml:ro
+    ports:
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - beckn_network
+    restart: unless-stopped
 
   loca-lt:
     image: node:20-alpine

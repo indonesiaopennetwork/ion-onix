@@ -11,6 +11,7 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+
   onix-bpp:
     image: fidedocker/onix-adapter:latest
     container_name: onix-bpp
@@ -27,10 +28,26 @@ services:
       RABBITMQ_ADDR: rabbitmq:5672
       RABBITMQ_USER: admin
       RABBITMQ_PASS: admin123
+      OTEL_EXPORTER_OTLP_INSECURE: true
+      OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector-bpp:4317
+
     volumes:
-      - ../config:/app/config
-      - ../schemas:/app/schemas
+      - ./config:/app/config
+      - ./schemas:/app/schemas
     command: [ "./server", "--config=/app/config/local-simple-bpp.yaml" ]
+
+  otel-collector-bpp:
+    image: otel/opentelemetry-collector-contrib:latest
+    container_name: otel-collector-bpp
+    command: ["--config=/etc/otel/config.yaml"]
+    volumes:
+      - ./config/otel-collector-bpp/config.yaml:/etc/otel/config.yaml:ro
+    ports:
+      - "4321:4317"
+      - "4322:4318"
+    networks:
+      - beckn_network
+    restart: unless-stopped
 
   loca-lt:
     image: node:20-alpine
@@ -40,7 +57,7 @@ services:
     networks:
       - beckn_network
     depends_on:
-      - onix-bap
+      - onix-bpp
     volumes:
       - ./config:/app/config:ro
     command:

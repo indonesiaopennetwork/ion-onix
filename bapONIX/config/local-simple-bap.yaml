@@ -16,6 +16,21 @@ http:
     idle: 30
 pluginManager:
   root: ./plugins
+
+plugins:
+  otelsetup:
+    id: otelsetup
+    config:
+      serviceName: "beckn-onix"
+      otlpEndpoint: "otel-collector-bap:4317"
+      enableMetrics: "true"
+      enableTracing: "true"
+      enableLogs: "true"
+      timeInterval: "5"
+      auditFieldsConfig: "/app/config/audit-fields.yaml" # this can be git url
+      producer: "sandbox.food-finder.com"
+      producerType: "bap"
+
 modules:
   - name: bapTxnReceiver
     path: /bap/receiver/
@@ -40,12 +55,12 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: sandbox.food-finder.com
-            keyId: 76EU8y5vi36wsggHNp46dGVqEKEJ4Up7jj3fJ2nxUD7AXAh47gVEDF
-            signingPrivateKey: rrNtVgyASCGlo+ebsJaA37D5CZYZVfT0JA5/vlkTeV0=
-            signingPublicKey: oFIk7KqCqvqRYkLMjQqiaKM5oOozkYT64bfLuc8p/SU=
-            encrPrivateKey: rrNtVgyASCGlo+ebsJaA37D5CZYZVfT0JA5/vlkTeV0=
-            encrPublicKey: oFIk7KqCqvqRYkLMjQqiaKM5oOozkYT64bfLuc8p/SU=
+            networkParticipant: 'bap-mock-il.iontest.in'
+            keyId: '76EU8ZSdroiuxzokP9WZbxzc4CCG1m7LcnqU4pY5iWE5zfT6EHTPht'
+            signingPrivateKey: 'Xk1geLi4kKYY0yAQGzgetJFGtp4Qzer7Kg9u4nLPzOE='
+            signingPublicKey: 'CuHIE3TD5HOjQ6fioxv+IFYWx01LQPvJNJsTm8svUE8='
+            encrPrivateKey: 'Xk1geLi4kKYY0yAQGzgetJFGtp4Qzer7Kg9u4nLPzOE='
+            encrPublicKey: 'CuHIE3TD5HOjQ6fioxv+IFYWx01LQPvJNJsTm8svUE8='
         schemaValidator:
           id: schemav2validator
           config:
@@ -100,12 +115,12 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: sandbox.food-finder.com
-            keyId: 76EU8y5vi36wsggHNp46dGVqEKEJ4Up7jj3fJ2nxUD7AXAh47gVEDF
-            signingPrivateKey: rrNtVgyASCGlo+ebsJaA37D5CZYZVfT0JA5/vlkTeV0=
-            signingPublicKey: oFIk7KqCqvqRYkLMjQqiaKM5oOozkYT64bfLuc8p/SU=
-            encrPrivateKey: rrNtVgyASCGlo+ebsJaA37D5CZYZVfT0JA5/vlkTeV0=
-            encrPublicKey: oFIk7KqCqvqRYkLMjQqiaKM5oOozkYT64bfLuc8p/SU=
+            networkParticipant: 'bap-mock-il.iontest.in'
+            keyId: '76EU8ZSdroiuxzokP9WZbxzc4CCG1m7LcnqU4pY5iWE5zfT6EHTPht'
+            signingPrivateKey: 'Xk1geLi4kKYY0yAQGzgetJFGtp4Qzer7Kg9u4nLPzOE='
+            signingPublicKey: 'CuHIE3TD5HOjQ6fioxv+IFYWx01LQPvJNJsTm8svUE8='
+            encrPrivateKey: 'Xk1geLi4kKYY0yAQGzgetJFGtp4Qzer7Kg9u4nLPzOE='
+            encrPublicKey: 'CuHIE3TD5HOjQ6fioxv+IFYWx01LQPvJNJsTm8svUE8='
         schemaValidator:
           id: schemav2validator
           config:
