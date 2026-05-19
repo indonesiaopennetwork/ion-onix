@@ -69,7 +69,7 @@ modules:
             extendedSchema_cacheTTL: "86400"
             extendedSchema_maxCacheSize: "100"
             extendedSchema_downloadTimeout: "30"
-            extendedSchema_allowedDomains: "raw.githubusercontent.com,schema.beckn.io"
+            extendedSchema_allowedDomains: "raw.githubusercontent.com,schema.beckn.io,schema.ion.id"
         cache:
           id: cache
           config:
@@ -124,7 +124,7 @@ modules:
             extendedSchema_cacheTTL: "86400"
             extendedSchema_maxCacheSize: "100"
             extendedSchema_downloadTimeout: "30"
-            extendedSchema_allowedDomains: "raw.githubusercontent.com,schema.beckn.io"
+            extendedSchema_allowedDomains: "raw.githubusercontent.com,schema.beckn.io,schema.ion.id"
         cache:
           id: cache
           config:
