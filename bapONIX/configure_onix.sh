@@ -68,6 +68,139 @@ unset_local_tunnel_compose_profile() {
   fi
 }
 
+
+upsert_otelsetup_producer() {
+  local config_file=$1
+  local producer=$2
+  local tmp_file
+
+  tmp_file=$(mktemp "${config_file}.XXXXXX")
+
+  awk -v producer="$(yaml_quote "$producer")" '
+    function indent_of(line) {
+      match(line, /^[[:space:]]*/)
+      return RLENGTH
+    }
+
+    function print_missing_producer(    ind) {
+      if (!in_otel_config || seen_producer) return
+
+      ind = otel_config_child_indent
+      if (ind == "") ind = otel_config_indent + 2
+
+      print sprintf("%*sproducer: %s", ind, "", producer)
+      seen_producer = 1
+    }
+
+    function print_missing_otel_config(    ind) {
+      if (!in_otel || seen_otel_config) return
+
+      ind = otel_child_indent
+      if (ind == "") ind = otel_indent + 2
+
+      print sprintf("%*sconfig:", ind, "")
+      print sprintf("%*sproducer: %s", ind + 2, "", producer)
+      seen_otel_config = 1
+      seen_producer = 1
+    }
+
+    BEGIN {
+      in_plugins = 0
+      plugins_indent = -1
+      in_otel = 0
+      otel_indent = -1
+      otel_child_indent = ""
+      seen_otel_config = 0
+      in_otel_config = 0
+      otel_config_indent = -1
+      otel_config_child_indent = ""
+      seen_producer = 0
+    }
+
+    {
+      line = $0
+      indent = indent_of(line)
+      nonblank = (line !~ /^[[:space:]]*$/)
+      noncomment = (line !~ /^[[:space:]]*#/)
+
+      if (in_otel_config && nonblank && noncomment && indent <= otel_config_indent) {
+        print_missing_producer()
+        in_otel_config = 0
+        otel_config_indent = -1
+        otel_config_child_indent = ""
+      }
+
+      if (in_otel && nonblank && noncomment && indent <= otel_indent) {
+        print_missing_otel_config()
+        in_otel = 0
+        otel_indent = -1
+        otel_child_indent = ""
+        seen_otel_config = 0
+        seen_producer = 0
+      }
+
+      if (in_plugins && nonblank && noncomment && indent <= plugins_indent) {
+        in_plugins = 0
+        plugins_indent = -1
+      }
+
+      if (!in_plugins && line ~ /^[[:space:]]*plugins:[[:space:]]*($|#)/) {
+        in_plugins = 1
+        plugins_indent = indent
+        print line
+        next
+      }
+
+      if (in_plugins && !in_otel && indent > plugins_indent && line ~ /^[[:space:]]*otelsetup:[[:space:]]*($|#)/) {
+        in_otel = 1
+        otel_indent = indent
+        otel_child_indent = ""
+        seen_otel_config = 0
+        seen_producer = 0
+        print line
+        next
+      }
+
+      if (in_otel && nonblank && indent > otel_indent) {
+        if (otel_child_indent == "" && line ~ /^[[:space:]]*[A-Za-z0-9_-]+[[:space:]]*:/) {
+          otel_child_indent = indent
+        }
+
+        if (!in_otel_config && line ~ /^[[:space:]]*config:[[:space:]]*($|#)/) {
+          in_otel_config = 1
+          otel_config_indent = indent
+          otel_config_child_indent = ""
+          seen_otel_config = 1
+          seen_producer = 0
+          print line
+          next
+        }
+      }
+
+      if (in_otel_config && nonblank && indent > otel_config_indent) {
+        if (otel_config_child_indent == "" && line ~ /^[[:space:]]*[A-Za-z0-9_-]+[[:space:]]*:/) {
+          otel_config_child_indent = indent
+        }
+
+        if (line ~ /^[[:space:]]*producer[[:space:]]*:/) {
+          print sprintf("%*sproducer: %s", indent, "", producer)
+          seen_producer = 1
+          next
+        }
+      }
+
+      print line
+    }
+
+    END {
+      print_missing_producer()
+      print_missing_otel_config()
+    }
+  ' "$config_file" > "$tmp_file"
+
+  mv "$tmp_file" "$config_file"
+}
+
 update_onix_config() {
   local config_file=$1
   local subscriber_id=$2
@@ -202,6 +335,8 @@ update_onix_config() {
   ' "$config_file" > "$tmp_file"
 
   mv "$tmp_file" "$config_file"
+
+  upsert_otelsetup_producer "$config_file" "$subscriber_id"
 }
 
 echo "Welcome to ONIX configuration!!"
