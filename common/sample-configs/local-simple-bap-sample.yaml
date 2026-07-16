@@ -1,4 +1,4 @@
-appName: "onix-local"
+appName: "onix-bap"
 log:
   level: debug
   destinations:
@@ -28,7 +28,7 @@ plugins:
       enableLogs: "true"
       timeInterval: "5"
       auditFieldsConfig: "/app/config/audit-fields.yaml" # this can be git url
-      producer: "sandbox.food-finder.com"
+      producer: "{{subscriberId}}"
       producerType: "bap"
 
 modules:
@@ -37,6 +37,7 @@ modules:
     handler:
       type: std
       role: bap
+      subscriberId: {{subscriberId}}
       httpClientConfig:
         maxIdleConns: 1000
         maxIdleConnsPerHost: 200
@@ -55,12 +56,12 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: sandbox.food-finder.com
-            keyId: 76EU8y5vi36wsggHNp46dGVqEKEJ4Up7jj3fJ2nxUD7AXAh47gVEDF
-            signingPrivateKey: rrNtVgyASCGlo+ebsJaA37D5CZYZVfT0JA5/vlkTeV0=
-            signingPublicKey: oFIk7KqCqvqRYkLMjQqiaKM5oOozkYT64bfLuc8p/SU=
-            encrPrivateKey: rrNtVgyASCGlo+ebsJaA37D5CZYZVfT0JA5/vlkTeV0=
-            encrPublicKey: oFIk7KqCqvqRYkLMjQqiaKM5oOozkYT64bfLuc8p/SU=
+            networkParticipant: {{subscriberId}}
+            keyId: {{keyId}}
+            signingPrivateKey: {{privateKey}}
+            signingPublicKey: {{publicKey}}
+            encrPrivateKey: {{privateKey}}
+            encrPublicKey: {{publicKey}}
         schemaValidator:
           id: schemav2validator
           config:
@@ -94,6 +95,7 @@ modules:
     handler:
       type: std
       role: bap
+      subscriberId: {{subscriberId}}
       httpClientConfig:
         maxIdleConns: 1000
         maxIdleConnsPerHost: 200
@@ -112,12 +114,12 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: sandbox.food-finder.com
-            keyId: 76EU8y5vi36wsggHNp46dGVqEKEJ4Up7jj3fJ2nxUD7AXAh47gVEDF
-            signingPrivateKey: rrNtVgyASCGlo+ebsJaA37D5CZYZVfT0JA5/vlkTeV0=
-            signingPublicKey: oFIk7KqCqvqRYkLMjQqiaKM5oOozkYT64bfLuc8p/SU=
-            encrPrivateKey: rrNtVgyASCGlo+ebsJaA37D5CZYZVfT0JA5/vlkTeV0=
-            encrPublicKey: oFIk7KqCqvqRYkLMjQqiaKM5oOozkYT64bfLuc8p/SU=
+            networkParticipant: {{subscriberId}}
+            keyId: {{keyId}}
+            signingPrivateKey: {{privateKey}}
+            signingPublicKey: {{publicKey}}
+            encrPrivateKey: {{privateKey}}
+            encrPublicKey: {{publicKey}}
         schemaValidator:
           id: schemav2validator
           config:
