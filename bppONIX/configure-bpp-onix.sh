@@ -54,7 +54,7 @@ if [[ -f "$CONFIG_FILE" ]]; then
       cp "$CONFIG_FILE" "$backup_file"
       ;;
     *)
-      echo "BPP/CN configuration stopped. The existing configuration was not modified."
+      echo "BPP/PN configuration stopped. The existing configuration was not modified."
       exit 0
       ;;
   esac
@@ -71,7 +71,7 @@ cp "$SAMPLE_CONFIG_FILE" "$CONFIG_FILE"
 replace_placeholders "$CONFIG_FILE"
 
 echo
-echo "BPP/CN configuration has been completed."
+echo "BPP/PN configuration has been completed."
 echo "The following file has been modified:"
 echo "  $CONFIG_FILE"
 
@@ -79,3 +79,5 @@ if [[ -n "$backup_file" ]]; then
   echo "The previous configuration was backed up to:"
   echo "  $backup_file"
 fi
+
+echo "Use ' docker compose -f docker-compose-BPPAdapter.yml up --build -d' to run the BPP/PN ONIX adapter"

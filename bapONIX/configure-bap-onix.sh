@@ -79,3 +79,5 @@ if [[ -n "$backup_file" ]]; then
   echo "The previous configuration was backed up to:"
   echo "  $backup_file"
 fi
+
+echo "Use ' docker compose -f docker-compose-BAPAdapter.yml up --build -d' to run the BAP/CN ONIX adapter"
