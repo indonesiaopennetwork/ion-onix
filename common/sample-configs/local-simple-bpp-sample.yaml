@@ -1,4 +1,4 @@
-appName: "onix-local"
+appName: "onix-bpp"
 log:
   level: debug
   destinations:
@@ -16,6 +16,7 @@ http:
     idle: 30
 pluginManager:
   root: ./plugins
+
 plugins:
   otelsetup:
     id: otelsetup
@@ -27,11 +28,12 @@ plugins:
       enableLogs: "true"
       timeInterval: "5"
       auditFieldsConfig: "/app/config/audit-fields.yaml" # this can be git url
-      producer: "sandbox.open-kitchen.com"
+      producer: "{{subscriberId}}"
       producerType: "bpp"
 modules:
   - name: bppTxnReceiver
     path: /bpp/receiver/
+    subscriberId: {{subscriberId}}
     handler:
       type: std
       role: bpp
@@ -53,12 +55,12 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: sandbox.open-kitchen.com
-            keyId: 76EU8h2x8sGsY9c659SFNT7pJEJntehLHfr3p4oXVy3mCDMn5GFiMg
-            signingPrivateKey: 4YRjrBFInRb8OLN1PiwUM9qutrJy2bvzcWPNy47VAD4=
-            signingPublicKey: AAUhITzcjMbmPikr/UV5T8/Zp8+NWZ/NrVVateA5eiQ=
-            encrPrivateKey: 4YRjrBFInRb8OLN1PiwUM9qutrJy2bvzcWPNy47VAD4=
-            encrPublicKey: AAUhITzcjMbmPikr/UV5T8/Zp8+NWZ/NrVVateA5eiQ=
+            networkParticipant: {{subscriberId}}
+            keyId: {{keyId}}
+            signingPrivateKey: {{privateKey}}
+            signingPublicKey: {{publicKey}}
+            encrPrivateKey: {{privateKey}}
+            encrPublicKey: {{publicKey}}
         schemaValidator:
           id: schemav2validator
           config:
@@ -87,6 +89,7 @@ modules:
   
   - name: bppTxnCaller
     path: /bpp/caller/
+    subscriberId: {{subscriberId}}
     handler:
       type: std
       role: bpp
@@ -108,12 +111,12 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: sandbox.open-kitchen.com
-            keyId: 76EU8h2x8sGsY9c659SFNT7pJEJntehLHfr3p4oXVy3mCDMn5GFiMg
-            signingPrivateKey: 4YRjrBFInRb8OLN1PiwUM9qutrJy2bvzcWPNy47VAD4=
-            signingPublicKey: AAUhITzcjMbmPikr/UV5T8/Zp8+NWZ/NrVVateA5eiQ=
-            encrPrivateKey: 4YRjrBFInRb8OLN1PiwUM9qutrJy2bvzcWPNy47VAD4=
-            encrPublicKey: AAUhITzcjMbmPikr/UV5T8/Zp8+NWZ/NrVVateA5eiQ=
+            networkParticipant: {{subscriberId}}
+            keyId: {{keyId}}
+            signingPrivateKey: {{privateKey}}
+            signingPublicKey: {{publicKey}}
+            encrPrivateKey: {{privateKey}}
+            encrPublicKey: {{publicKey}}
         schemaValidator:
           id: schemav2validator
           config:
