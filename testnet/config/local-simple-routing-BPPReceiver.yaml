@@ -4,9 +4,14 @@ routingRules:
     target:
       url: "http://sandbox-bpp:3002/api/webhook"
     endpoints:
+      - discover
       - select
       - init
       - confirm
       - status
+      - track
+      - update
       - cancel
+      - rate
       - support
+      - on_publish

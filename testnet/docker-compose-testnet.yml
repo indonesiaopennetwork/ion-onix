@@ -2,7 +2,28 @@ services:
   # ============================================
   # Core Infrastructure Services
   # ============================================
-
+  # ============================================================
+  # reverse-proxy — Caddy reverse proxy, single entry point for
+  #   both adapters. Exposes port 9000 on the host.
+  #
+  #   /bap/* → onix-bap:8081
+  #   /bpp/* → onix-bpp:8082
+  #
+  # ============================================================
+  reverse-proxy:
+    image: caddy:alpine
+    container_name: reverse-proxy
+    ports:
+      - "9000:9000"
+    networks:
+      - beckn_network
+    volumes:
+      - ./config/Caddyfile:/etc/caddy/Caddyfile
+      - ./data/beckn:/srv/beckn:ro
+    depends_on:
+      - onix-bap
+      - onix-bpp
+    restart: unless-stopped
   # Redis - Caching Service
   redis:
     image: redis:alpine
@@ -25,21 +46,17 @@ services:
       - beckn_network
     ports:
       - "8081:8081"
+    restart: unless-stopped
     environment:
       CONFIG_FILE: "/app/config/local-simple-bap.yaml"
-      VAULT_ADDR: http://vault:8200
-      VAULT_TOKEN: root
       REDIS_ADDR: redis:6379
-      RABBITMQ_ADDR: rabbitmq:5672
-      RABBITMQ_USER: admin
-      RABBITMQ_PASS: admin123
     volumes:
       - ./config:/app/config
       - ./schemas:/app/schemas
     command: [ "./server", "--config=/app/config/local-simple-bap.yaml" ]
 
   onix-bpp:
-    image: fidedocker/onix-adapter:latest
+    image: fidedocker/catalog-publisher:latest
     container_name: onix-bpp
     platform: linux/amd64
     networks:
@@ -48,15 +65,11 @@ services:
       - "8082:8082"
     environment:
       CONFIG_FILE: "/app/config/local-simple-bpp.yaml"
-      VAULT_ADDR: http://vault:8200
-      VAULT_TOKEN: root
       REDIS_ADDR: redis:6379
-      RABBITMQ_ADDR: rabbitmq:5672
-      RABBITMQ_USER: admin
-      RABBITMQ_PASS: admin123
     volumes:
       - ./config:/app/config
       - ./schemas:/app/schemas
+      - ../data/beckn:/beckn
     command: [ "./server", "--config=/app/config/local-simple-bpp.yaml" ]
     
   sandbox-bap:

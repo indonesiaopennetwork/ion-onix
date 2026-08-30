@@ -1,6 +1,6 @@
 ## ION Testnet
 
-Inspired by the [Beckn local retail devkit and testnet](https://github.com/beckn/local-retail/tree/main/testnet/retail-devkit), the ion Testnet provides a docker compose based all in one development and testing platform for ION (Indonesia Open Network)
+Inspired by the [Beckn starter-kit](https://github.com/beckn/starter-kit), the ion Testnet provides a docker compose based all in one development and testing platform for ION (Indonesia Open Network). The primary change from starter-kit is the use of ION registries, ION discover service, ION message format etc.
 
 ---
 
@@ -21,18 +21,24 @@ Inspired by the [Beckn local retail devkit and testnet](https://github.com/beckn
 
 The ION Testnet enables developers to simulate and test decentralised commerce transactions in different sectors over the beckn protocol. It bundles together a docker compose based network containing the ONIX adapters, simulated seller apps, thin monitoring service for troubleshooting. In addition additional guides and postman collections are provided to help developers quickly build Buyer Apps and Seller Apps.
 
+Testnet can be run in two modes. In the first mode, all the actors run within the local computer and there is no need for a web accessible address. In the second mode, some actors (particularly the discover service) are on the network and so the local computer requires a network accessible endpoint for the discover service to send back the on_discover as well as for discover service to crawl any hosted catalogs. This document describes the latter configuration. It uses the ngrok program to create a web accessible endpoint through which all incoming and outgoing communication are directed. Towards the end of this document a section for the former configuration is added.
+
 ---
 
 ## Prerequisites
 
 Before you begin, ensure the following tools are installed on your system:
 
-- **Git** — to clone this repository
-- **Docker** and **Docker Compose** — to run the adapter stack
-  - [Install Docker](https://docs.docker.com/engine/install/)
-  - Docker Compose is included with Docker Desktop; for Linux, follow the [Compose plugin guide](https://docs.docker.com/compose/install/)
+- **Git** — to clone this repository (You should be able to run `git` command at the terminal)
+- **Docker Desktop** (You should be able to run `docker compose` command at the terminal)
 - **Postman** — to import and run the test collections
   - [Download Postman](https://www.postman.com/downloads/)
+- **ngrok client**
+    - We need to download the ngrok software onto local machine (You should be able to run `ngrok` in terminal)
+    - We need to signup at ngrok.com . 
+    - After signup, 
+      - click on the `Your AuthToken` menu on the left panel and copy the Auth Token(`NGROK_AUTH_TOKEN`)
+      - click on the domains menu item. The center panel will show a web address that is reserved for you(`NGROK_DEV_DOMAIN`). This web address will be used to expose your local computer to the external world.
 
 ---
 
@@ -43,6 +49,7 @@ testnet/
 ├── config/          # Configuration files for the adapter
 ├── docker-compose-testnet.yml  # docker compose 
 └── postman/         # Postman collections for testing
+└── data/         # Will be used by software to store catalogs etc
 ```
 
 ---
@@ -58,16 +65,24 @@ git clone https://github.com/indonesiaopennetwork/ion-onix.git
 cd ion-onix
 ```
 
-**2. Start the adapter stack**
+**2. Configure your settings**
+- Within the devlabs site on ION central, configure the required Beckn keys (for both Buyer App and Seller App). Then copy those values and replace them in the **settings.env** file within the `testnet` folder.
 
+**3. Start NGROK**
+- Within the `testnet` subfolder run the following command
 ```bash
-cd testnet
+ngrok start  --all --config config/ngrok.yml
+```
+
+**4. Start the adapter stack**
+- Within the `testnet` subfolder run the following command
+```bash
 docker compose -f docker-compose-testnet.yml up --build
 ```
 
 This command builds and starts all required services. The first run may take a few minutes to pull and build Docker images.
 
-**3. Verify the stack is running**
+**4. Verify the stack is running**
 
 Once the containers are up, verify the services are healthy:
 

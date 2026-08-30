@@ -31,8 +31,6 @@ modules:
         registry:
           id: dediregistry
           config:
-            url: https://fabric.nfh.global/registry/dedi
-            registryName: subscribers.beckn.one
             timeout: 10
             retry_max: 3
             retry_wait_min: 100ms
@@ -40,12 +38,12 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: dc-bap.ion.id
-            keyId: 76EU7JHvbQGBL8UnkKpKK32MMnCbnjjkPftuCcBJ7DULsxVq53NJRz
-            signingPrivateKey: THNHFIGWN8IutTzeWWNPCgSeDIfZjv/C80AoRClSMc8=
-            signingPublicKey: jnSciDWwaDwcvzxMuacsOEvO7g/6TdD/cf4OJrwCZjA=
-            encrPrivateKey: THNHFIGWN8IutTzeWWNPCgSeDIfZjv/C80AoRClSMc8=
-            encrPublicKey: jnSciDWwaDwcvzxMuacsOEvO7g/6TdD/cf4OJrwCZjA=
+            subscriberId: {{BAP_SUBSCRIBER_ID}}
+            keyId: {{BAP_KEY_ID}}
+            signingPrivateKey: {{BAP_PRIVATE_KEY}}
+            signingPublicKey: {{BAP_PUBLIC_KEY}}
+            encrPrivateKey: {{BAP_PRIVATE_KEY}}
+            encrPublicKey: {{BAP_PUBLIC_KEY}}
         schemaValidator:
           id: schemav2validator
           config:
@@ -91,8 +89,6 @@ modules:
         registry:
           id: dediregistry
           config:
-            url: https://fabric.nfh.global/registry/dedi
-            registryName: subscribers.beckn.one
             timeout: 10
             retry_max: 3
             retry_wait_min: 100ms
@@ -100,12 +96,12 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: dc-bap.ion.id
-            keyId: 76EU7JHvbQGBL8UnkKpKK32MMnCbnjjkPftuCcBJ7DULsxVq53NJRz
-            signingPrivateKey: THNHFIGWN8IutTzeWWNPCgSeDIfZjv/C80AoRClSMc8=
-            signingPublicKey: jnSciDWwaDwcvzxMuacsOEvO7g/6TdD/cf4OJrwCZjA=
-            encrPrivateKey: THNHFIGWN8IutTzeWWNPCgSeDIfZjv/C80AoRClSMc8=
-            encrPublicKey: jnSciDWwaDwcvzxMuacsOEvO7g/6TdD/cf4OJrwCZjA=
+            subscriberId: {{BAP_SUBSCRIBER_ID}}
+            keyId: {{BAP_KEY_ID}}
+            signingPrivateKey: {{BAP_PRIVATE_KEY}}
+            signingPublicKey: {{BAP_PUBLIC_KEY}}
+            encrPrivateKey: {{BAP_PRIVATE_KEY}}
+            encrPublicKey: {{BAP_PUBLIC_KEY}}
         schemaValidator:
           id: schemav2validator
           config:
