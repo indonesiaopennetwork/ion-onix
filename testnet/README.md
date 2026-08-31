@@ -136,6 +136,24 @@ Once the stack is running and the collection is imported:
 The collections are ordered to reflect a typical beckn transaction flow (for example: `discover` → `on_discover` → `select` → `on_select`, and so on). Run them in sequence for an end-to-end test.
 
 
+## Running with default values.
+If you do not have devlabs access yet and want to run the network with default values, that is supported. You just need a subset of the above steps. Here are the steps you need to do.
+1. Clone the repository
+2. Run configure.sh (changes config and postman environment with default values)
+3. Start docker compose 
+4. Import postman collection and environment. Set environment and run requests.
+
+Remember that when you do it this way, since your local computer does not have a web accessible point, the following will not be possible.
+1. You can send discover call, but on_discover will not arrive back from Discover service
+2. You can publish the catalog, but it will not be crawled by Discover service.
+
+
+## Running with only one end credentials
+If you have only a Buyer App profile and want to run the Buyer App under your subscriber details and want to run the Seller app with the default credentials, that is possible. Same is the case if you want to only fill the Seller App profile. All you need to do is follow the same steps as QuickStart. Just replace the values you have and leave the rest to default. Continue with the other steps as normal.
+
+
+
+
 ## Architecture
 
 The devkit simulates a beckn-compliant Buyer App (BAP-Beckn Application Platform) and Seller App (BPP-Beckn Provider Platform) ONIX adapter pair locally. Here is a high-level overview of the data flow: (IMAGE WIP)
