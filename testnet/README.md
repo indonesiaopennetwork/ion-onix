@@ -75,7 +75,8 @@ cd ion-onix
 ```
 
 ### 2. Configure your settings
-- Within the devlabs site on ION central, configure the required Beckn keys (for both Buyer App and Seller App). Then copy those values and replace them in the **settings.env** file within the `testnet` folder.
+- Add your ngrok auth token and ngrok static domain (dev domain) to the `settings.env` file present in the `testnet` folder.
+- Within the devlabs site on ION central, configure the required Beckn keys (for both Buyer App and Seller App). Then copy those values and replace them in the settings.env file.
 - Now run `configure.sh` file within the testnet folder. This will configure all the remaining files with the values you copied from devlabs.
 
 ### 3. Start NGROK
