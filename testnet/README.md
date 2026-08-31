@@ -51,7 +51,7 @@ testnet/
 ├── data/            # Will be created at runtime and used by software to store catalogs etc
 ├── docker-compose-testnet.yml  # docker compose file
 ├── settings.env     # You set your values here
-└── configure.sh     # Run this for values you set to be reflected in various config files.
+└── configure.sh/configure.bat     # Run this for values you set to be reflected in various config files.
 
 ```
 
@@ -61,12 +61,13 @@ testnet/
 
 These are the steps in brief. They are detailed below
 1. Clone the repository
-2. Change values in settings.env and run configure.sh (changes config and postman environment)
+2. Change values in settings.env and run configure.sh/configure.bat (changes config and postman environment)
 3. Start ngrok
 4. Start docker compose 
 5. Import postman collection and environment. Set environment and run requests.
 
-Follow these steps to get the ION testnet running locally:
+Following are the details on the above steps.
+
 ### 1. Clone the repository
 
 ```bash
@@ -77,7 +78,7 @@ cd ion-onix
 ### 2. Configure your settings
 - Add your ngrok auth token and ngrok static domain (dev domain) to the `settings.env` file present in the `testnet` folder.
 - Within the devlabs site on ION central, configure the required Beckn keys (for both Buyer App and Seller App). Then copy those values and replace them in the settings.env file.
-- Now run `configure.sh` file within the testnet folder. This will configure all the remaining files with the values you copied from devlabs.
+- Now run `configure.sh` file or `configure.bat` file (windows) within the testnet folder. This will configure all the remaining files with the values you copied from devlabs.
 
 ### 3. Start NGROK
 - Within the `testnet` subfolder run the following command
@@ -122,7 +123,7 @@ Launch the Postman desktop application.
 
 **Step 3 - Import the postman environment**
 1. Within postman select import and select the IONStarterKitEnv.postman_environment.json file.
-2. **Ensure that select the `ION Starter Kit Env` as your environment** before you run API reqests.
+2. **Ensure that select the `ION Starter Kit Env` as your environment** before you run API reqests. If you skip this step, you will get errors similar to 'Subscriber Id not set' when you run the requests.
 
 ### 5b. Making API Requests
 
@@ -137,10 +138,10 @@ Once the stack is running and the collection is imported:
 The collections are ordered to reflect a typical beckn transaction flow (for example: `discover` → `on_discover` → `select` → `on_select`, and so on). Run them in sequence for an end-to-end test.
 
 
-## Running with default values.
+## Running with in-built subscriber details 
 If you do not have devlabs access yet and want to run the network with default values, that is supported. You just need a subset of the above steps. Here are the steps you need to do.
 1. Clone the repository
-2. Run configure.sh (changes config and postman environment with default values)
+2. Run configure.sh/configure.bat (changes config and postman environment with default values)
 3. Start docker compose 
 4. Import postman collection and environment. Set environment and run requests.
 
@@ -149,7 +150,7 @@ Remember that when you do it this way, since your local computer does not have a
 2. You can publish the catalog, but it will not be crawled by Discover service.
 
 
-## Running with only one end credentials
+## Running with only one profile (Buyer App/Seller App)
 If you have only a Buyer App profile and want to run the Buyer App under your subscriber details and want to run the Seller app with the default credentials, that is possible. Same is the case if you want to only fill the Seller App profile. All you need to do is follow the same steps as QuickStart. Just replace the values you have and leave the rest to default. Continue with the other steps as normal.
 
 
