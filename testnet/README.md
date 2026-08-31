@@ -59,26 +59,32 @@ testnet/
 
 ## Quick Start
 
-Follow these steps to get the ION testnet running locally:
+These are the steps in brief. They are detailed below
+1. Clone the repository
+2. Change values in settings.env and run configure.sh (changes config and postman environment)
+3. Start ngrok
+4. Start docker compose 
+5. Import postman collection and environment. Set environment and run requests.
 
-**1. Clone the repository**
+Follow these steps to get the ION testnet running locally:
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/indonesiaopennetwork/ion-onix.git
 cd ion-onix
 ```
 
-**2. Configure your settings**
+### 2. Configure your settings
 - Within the devlabs site on ION central, configure the required Beckn keys (for both Buyer App and Seller App). Then copy those values and replace them in the **settings.env** file within the `testnet` folder.
 - Now run `configure.sh` file within the testnet folder. This will configure all the remaining files with the values you copied from devlabs.
 
-**3. Start NGROK**
+### 3. Start NGROK
 - Within the `testnet` subfolder run the following command
 ```bash
 ngrok start  --all --config config/ngrok.yml
 ```
 
-**4. Start the adapter stack**
+### 4. Start the adapter stack
 - Within the `testnet` subfolder run the following command
 ```bash
 docker compose -f docker-compose-testnet.yml up --build
@@ -86,7 +92,7 @@ docker compose -f docker-compose-testnet.yml up --build
 
 This command builds and starts all required services. The first run may take a few minutes to pull and build Docker images.
 
-**4. Verify the stack is running**
+**4a. Verify the stack is running**
 
 Once the containers are up, verify the services are healthy:
 
@@ -98,7 +104,7 @@ All services should show a `running` or `healthy` status.
 
 ---
 
-## Importing Postman Collections and environments
+### 5. Importing Postman Collections and environments
 
 The `postman/` directory contains pre-built collections for testing the ION APIs in various sectors.
 
@@ -117,9 +123,7 @@ Launch the Postman desktop application.
 1. Within postman select import and select the IONStarterKitEnv.postman_environment.json file.
 2. **Ensure that select the `ION Starter Kit Env` as your environment** before you run API reqests.
 
----
-
-## Making API Requests
+### 5b. Making API Requests
 
 Once the stack is running and the collection is imported:
 
@@ -131,7 +135,6 @@ Once the stack is running and the collection is imported:
 
 The collections are ordered to reflect a typical beckn transaction flow (for example: `discover` → `on_discover` → `select` → `on_select`, and so on). Run them in sequence for an end-to-end test.
 
----
 
 ## Architecture
 

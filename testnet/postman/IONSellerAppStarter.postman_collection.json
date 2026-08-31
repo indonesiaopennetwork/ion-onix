@@ -191,12 +191,12 @@
       "value": ""
     },
     {
-      "key": "public_url",
+      "key": "base_url",
       "value": ""
     },
     {
       "key": "bap_uri",
-      "value": "{{public_url}}/bap/receiver"
+      "value": "{{base_url}}/bap/receiver"
     },
     {
       "key": "bpp_id",
@@ -204,7 +204,7 @@
     },
     {
       "key": "bpp_uri",
-      "value": "{{public_url}}/bpp/receiver"
+      "value": "{{base_url}}/bpp/receiver"
     },
     {
       "key": "networkId",

@@ -66,6 +66,8 @@ process_file() {
     local key
     local value
     local line
+    local ngrok_dev_domain=""
+    local base_url
 
     while IFS= read -r line || [[ -n "$line" ]]; do
 
@@ -99,7 +101,20 @@ process_file() {
 
         replace_in_file "$file" "$key" "$value"
 
+        if [[ "$key" == "NGROK_DEV_DOMAIN" ]]; then
+            ngrok_dev_domain="$value"
+        fi
+
     done < "$SETTINGS_FILE"
+
+    # BASE_URL is a synthetic key derived from NGROK_DEV_DOMAIN.
+    if [[ -n "$ngrok_dev_domain" ]]; then
+        base_url="https://$ngrok_dev_domain"
+    else
+        base_url="http://host.docker.internal:9000"
+    fi
+
+    replace_in_file "$file" "BASE_URL" "$base_url"
 }
 
 
