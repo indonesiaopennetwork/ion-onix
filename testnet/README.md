@@ -135,9 +135,9 @@ The collections are ordered to reflect a typical beckn transaction flow (for exa
 
 ## Architecture
 
-The devkit simulates a beckn-compliant Buyer App (BAP-Beckn Application Platform) and Seller App (BPP-Beckn Provider Platform) ONIX adapter pair locally. Here is a high-level overview of the data flow:
+The devkit simulates a beckn-compliant Buyer App (BAP-Beckn Application Platform) and Seller App (BPP-Beckn Provider Platform) ONIX adapter pair locally. Here is a high-level overview of the data flow: (IMAGE WIP)
 
-<img src="./resources/ion-testnet-na.png" width="70%" />
+<!-- <img src="docs/resources/ion-testnet-na.png" width="70%" /> -->
 
 ---
 
