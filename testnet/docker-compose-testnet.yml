@@ -56,7 +56,7 @@ services:
     command: [ "./server", "--config=/app/config/local-simple-bap.yaml" ]
 
   onix-bpp:
-    image: fidedocker/catalog-publisher:latest
+    image: fidedocker/onix-adapter:latest
     container_name: onix-bpp
     platform: linux/amd64
     networks:

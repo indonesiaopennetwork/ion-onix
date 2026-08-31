@@ -175,6 +175,10 @@ modules:
             signingPublicKey: {{BPP_PUBLIC_KEY}}
             encrPrivateKey: {{BPP_PRIVATE_KEY}}
             encrPublicKey: {{BPP_PUBLIC_KEY}}
+        catalogBlobStore:
+          id: localcatalogblobstore
+          config:
+            root: /beckn
         catalogPublisher:
           id: catalogpublisher
           config:
