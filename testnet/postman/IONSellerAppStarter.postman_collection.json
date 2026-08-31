@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "a77690d9-b458-4b10-b084-d73a52d4814c",
-    "name": "ION Seller App Starter Kit",
+    "name": "ION Starter Kit Seller App",
     "description": "Usecase-agnostic BPP on_* callbacks for all Beckn Protocol v2.0.0 responses. All schema objects carry JSON-LD @context and @type annotations.\n\nSet bpp_adapter_url = http://localhost:8082/bpp/caller before running.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "31095695"
@@ -208,7 +208,7 @@
     },
     {
       "key": "networkId",
-      "value": "ion.id/ion-launch"
+      "value": ""
     },
     {
       "key": "transaction_id",

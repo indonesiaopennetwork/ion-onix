@@ -69,7 +69,7 @@ services:
     volumes:
       - ./config:/app/config
       - ./schemas:/app/schemas
-      - ../data/beckn:/beckn
+      - ./data/beckn:/beckn
     command: [ "./server", "--config=/app/config/local-simple-bpp.yaml" ]
     
   sandbox-bap:

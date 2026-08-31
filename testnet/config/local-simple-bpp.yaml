@@ -31,6 +31,7 @@ modules:
         registry:
           id: dediregistry
           config:
+            allowedNetworkIDs: "{{ION_NETWORK_ID}}"
             timeout: 10
             retry_max: 3
             retry_wait_min: 100ms
@@ -84,8 +85,7 @@ modules:
         registry:
           id: dediregistry
           config:
-            url: https://fabric.nfh.global/registry/dedi
-            registryName: subscribers.beckn.one
+            allowedNetworkIDs: "{{ION_NETWORK_ID}}"
             timeout: 10
             retry_max: 3
             retry_wait_min: 100ms
@@ -183,7 +183,7 @@ modules:
             # Public URL prefix outputRoot is served under (beckn-router's
             # ngrok tunnel, /beckn/* route in install/Caddyfile). Update if
             # your ngrok domain changes.
-            catalogBaseURL: "https://{{NGROK_DEV_DOMAIN}}"
+            catalogBaseURL: "https://{{NGROK_DEV_DOMAIN}}/beckn"
             # Read-only, warn-only: checks whether this node's DeDi registry
             # record links this catalog index via meta.catalog_index_urls.
             checkCatalogIndexLink: "true"

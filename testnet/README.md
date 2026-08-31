@@ -47,9 +47,12 @@ Before you begin, ensure the following tools are installed on your system:
 ```text
 testnet/
 ├── config/          # Configuration files for the adapter
-├── docker-compose-testnet.yml  # docker compose 
-└── postman/         # Postman collections for testing
-└── data/         # Will be used by software to store catalogs etc
+├── postman/         # Postman collections for testing
+├── data/            # Will be created at runtime and used by software to store catalogs etc
+├── docker-compose-testnet.yml  # docker compose file
+├── settings.env     # You set your values here
+└── configure.sh     # Run this for values you set to be reflected in various config files.
+
 ```
 
 ---
@@ -67,6 +70,7 @@ cd ion-onix
 
 **2. Configure your settings**
 - Within the devlabs site on ION central, configure the required Beckn keys (for both Buyer App and Seller App). Then copy those values and replace them in the **settings.env** file within the `testnet` folder.
+- Now run `configure.sh` file within the testnet folder. This will configure all the remaining files with the values you copied from devlabs.
 
 **3. Start NGROK**
 - Within the `testnet` subfolder run the following command
@@ -94,7 +98,7 @@ All services should show a `running` or `healthy` status.
 
 ---
 
-## Importing Postman Collections
+## Importing Postman Collections and environments
 
 The `postman/` directory contains pre-built collections for testing the ION APIs in various sectors.
 
@@ -107,7 +111,11 @@ Launch the Postman desktop application.
 1. Click **Import** in the top-left corner of the Postman window.
 2. Select **File** in the import modal.
 3. Navigate to the `postman/` directory in your cloned repository.
-4. Select the relevant collection file (`.json`) and click **Open**.
+4. Select the `IONBuyerAppStarter.postman_collection.json` and `IONSellerAppStarter.postman_collection.json` and click **Open**.
+
+**Step 3 - Import the postman environment**
+1. Within postman select import and select the IONStarterKitEnv.postman_environment.json file.
+2. **Ensure that select the `ION Starter Kit Env` as your environment** before you run API reqests.
 
 ---
 
@@ -115,7 +123,7 @@ Launch the Postman desktop application.
 
 Once the stack is running and the collection is imported:
 
-1. Expand the collection in the Postman sidebar to view available requests.
+1. Expand `ION Starter Kit Buyer App` and `ION Starter Kit Seller App` collections in the Postman sidebar to view available requests.
 2. Click on a request to open it.
 3. Review the request method, URL, and body.
 4. Click **Send** to execute the request.
