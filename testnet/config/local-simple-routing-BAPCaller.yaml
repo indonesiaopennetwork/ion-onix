@@ -6,7 +6,10 @@ routingRules:
       - init
       - confirm
       - status
+      - track
+      - update
       - cancel
+      - rate
       - support
   - version: "2.0.0"
     targetType: "url"
