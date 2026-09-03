@@ -20,9 +20,7 @@ services:
       - "8081:8081"
     environment:
       CONFIG_FILE: "/app/config/local-simple-bap.yaml"
-      REDIS_ADDR: redis-cnode:6379
       OTEL_EXPORTER_OTLP_INSECURE: true
-      OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector-bap:4317
     volumes:
       - ./config:/app/config
     command: [ "./server", "--config=/app/config/local-simple-bap.yaml" ]

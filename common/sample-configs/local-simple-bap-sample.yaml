@@ -23,8 +23,8 @@ plugins:
     config:
       serviceName: "beckn-onix"
       otlpEndpoint: "otel-collector-bap:4317"
-      enableMetrics: "true"
-      enableTracing: "true"
+      enableMetrics: "false"
+      enableTracing: "false"
       enableLogs: "true"
       timeInterval: "5"
       auditFieldsConfig: "/app/config/audit-fields.yaml" # this can be git url
@@ -47,8 +47,6 @@ modules:
         registry:
           id: dediregistry
           config:
-            url: https://fabric.nfh.global/registry/dedi
-            registryName: subscribers.beckn.one
             timeout: 10
             retry_max: 3
             retry_wait_min: 100ms
@@ -56,7 +54,7 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: {{subscriberId}}
+            subscriberId: {{subscriberId}}
             keyId: {{keyId}}
             signingPrivateKey: {{privateKey}}
             signingPublicKey: {{publicKey}}
@@ -76,19 +74,20 @@ modules:
         cache:
           id: cache
           config:
-            addr: redis:6379
+            addr: redis-cnode:6379
+        signValidator:
+          id: signvalidator
+        signer:
+          id: signer
         router:
           id: router
           config:
             routingConfig: ./config/local-simple-routing-BAPReceiver.yaml
-        middleware:
-          - id: reqpreprocessor
-            config:
-              uuidKeys: transaction_id,message_id
-              role: bap
       steps:
+        - validateSign
         - addRoute
         - validateSchema
+        - signAck
   
   - name: bapTxnCaller
     path: /bap/caller/
@@ -105,8 +104,6 @@ modules:
         registry:
           id: dediregistry
           config:
-            url: https://fabric.nfh.global/registry/dedi
-            registryName: subscribers.beckn.one
             timeout: 10
             retry_max: 3
             retry_wait_min: 100ms
@@ -114,7 +111,7 @@ modules:
         keyManager:
           id: simplekeymanager
           config:
-            networkParticipant: {{subscriberId}}
+            subscriberId: {{subscriberId}}
             keyId: {{keyId}}
             signingPrivateKey: {{privateKey}}
             signingPublicKey: {{publicKey}}
@@ -134,13 +131,15 @@ modules:
         cache:
           id: cache
           config:
-            addr: redis:6379
+            addr: redis-cnode:6379
         router:
           id: router
           config:
             routingConfig: ./config/local-simple-routing-BAPCaller.yaml
         signer:
           id: signer
+        signValidator:
+          id: signvalidator          
         middleware:
           - id: reqpreprocessor
             config:
@@ -148,6 +147,7 @@ modules:
               role: bap
       steps:
         - addRoute
-        - sign
         - validateSchema
-  
+        - sign
+        - validateAckSign
+

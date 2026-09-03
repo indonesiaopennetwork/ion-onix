@@ -32,7 +32,7 @@ processors:
 
 exporters:
   otlp_http/collector-network:
-    endpoint: https://netcol.iontest.in
+    endpoint: https://netcol.staging.ion.id
     compression: gzip
 
 extensions:

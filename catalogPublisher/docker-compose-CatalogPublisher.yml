@@ -1,0 +1,31 @@
+services:
+  redis-cat:
+    image: redis:alpine
+    container_name: redis-cat
+    networks:
+      - beckn_network
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  catalog-publisher:
+    image: fidedocker/onix-adapter:latest
+    container_name: catalog-publisher
+    platform: linux/amd64
+    networks:
+      - beckn_network
+    ports:
+      - "8083:8083"
+    environment:
+      CONFIG_FILE: "/app/config/local-simple-catalog-publisher.yaml"
+    volumes:
+      - ./config:/app/config
+      - ./data/beckn:/beckn
+    command: [ "./server", "--config=/app/config/local-simple-catalog-publisher.yaml" ]
+
+networks:
+  beckn_network:
+    name: beckn_network
+    driver: bridge

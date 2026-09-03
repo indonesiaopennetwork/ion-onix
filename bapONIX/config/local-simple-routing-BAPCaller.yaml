@@ -6,11 +6,14 @@ routingRules:
       - init
       - confirm
       - status
+      - track
+      - update
       - cancel
+      - rate
       - support
   - version: "2.0.0"
     targetType: "url"
     target:
-      url: "https://34.47.138.217.sslip.io/beckn"
+      url: "https://discover.infra.ion.id/beckn"
     endpoints:
       - discover

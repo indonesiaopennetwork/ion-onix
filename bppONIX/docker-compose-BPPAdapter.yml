@@ -20,10 +20,7 @@ services:
       - "8082:8082"
     environment:
       CONFIG_FILE: "/app/config/local-simple-bpp.yaml"
-      REDIS_ADDR: redis-pnode:6379
       OTEL_EXPORTER_OTLP_INSECURE: true
-      OTEL_EXPORTER_OTLP_ENDPOINT: otel-collector-bpp:4317
-
     volumes:
       - ./config:/app/config
     command: [ "./server", "--config=/app/config/local-simple-bpp.yaml" ]
