@@ -9,5 +9,8 @@ routingRules:
       - on_init
       - on_confirm
       - on_status
+      - on_track
+      - on_update
       - on_cancel
+      - on_rate
       - on_support
