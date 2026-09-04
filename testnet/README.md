@@ -137,6 +137,7 @@ Once the stack is running and the collection is imported:
 
 The collections are ordered to reflect a typical beckn transaction flow (for example: `discover` → `on_discover` → `select` → `on_select`, and so on). Run them in sequence for an end-to-end test.
 
+**IMPORTANT: Everytime you want to change settings.env and run configure.sh, the older configurations have to be dropped. So run `git checkout .` from the testnet folder so the config files that have changed are reset. After that run the configure.sh file**
 
 ## Running with in-built subscriber details 
 If you do not have devlabs access yet and want to run the network with default values, that is supported. You just need a subset of the above steps. Here are the steps you need to do.
