@@ -23,6 +23,8 @@ The ION Testnet enables developers to simulate and test decentralised commerce t
 
 Testnet can be run in two modes. In the first mode, all the actors run within the local computer and there is no need for a web accessible address. In the second mode, some actors (particularly the discover service) are on the network and so the local computer requires a network accessible endpoint for the discover service to send back the on_discover as well as for discover service to crawl any hosted catalogs. This document describes the latter configuration. It uses the ngrok program to create a web accessible endpoint through which all incoming and outgoing communication are directed. Towards the end of this document a section for the former configuration is added.
 
+A developer created video version of this document is [here](https://drive.google.com/file/d/1h0DAda2ylNV9V1rVHecqH0jxwHwcjNNW/view?usp=drive_link). (The audio level in the recording is a little low.)
+
 ---
 
 ## Prerequisites
