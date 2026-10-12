@@ -1,3 +1,4 @@
+name: ion-testnet
 services:
   # ============================================
   # Core Infrastructure Services
@@ -107,6 +108,16 @@ services:
       start_period: 10s
     networks:
       - beckn_network
+  
+  dozzle:
+    image: amir20/dozzle:latest
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      DOZZLE_FILTER: "label=com.docker.compose.project=ion-testnet"
 
 networks:
   beckn_network:

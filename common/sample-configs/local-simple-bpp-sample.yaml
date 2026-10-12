@@ -33,10 +33,10 @@ plugins:
 modules:
   - name: bppTxnReceiver
     path: /bpp/receiver/
-    subscriberId: {{subscriberId}}
     handler:
       type: std
       role: bpp
+      subscriberId: {{subscriberId}}
       httpClientConfig:
         maxIdleConns: 1000
         maxIdleConnsPerHost: 200
@@ -90,10 +90,10 @@ modules:
   
   - name: bppTxnCaller
     path: /bpp/caller/
-    subscriberId: {{subscriberId}}
     handler:
       type: std
       role: bpp
+      subscriberId: {{subscriberId}}
       httpClientConfig:
         maxIdleConns: 1000
         maxIdleConnsPerHost: 200
