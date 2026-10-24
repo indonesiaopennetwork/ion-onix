@@ -13,13 +13,13 @@ The testnet contained in this folder includes all the components of a ION test n
 In this current folder, run the following command. If you do not want the aggregated logs streaming in the console, use the -d flag to run it in detached mode. 
 
 ```
-docker compose -f docker-compose-testnet.yaml up --build 
+docker compose up --build
 ```
 
 To bring down the testnet, if it is running in an attached mode, you can type ctrl-c and then run the following command. If you are running in the detached mode, you can directly run this command from this folder.
 
 ```
-docker compose -f docker-compose-testnet.yaml down
+docker compose down
 ```
 
 ## Understanding ION through the testnet

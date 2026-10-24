@@ -111,6 +111,7 @@ services:
   
   dozzle:
     image: amir20/dozzle:latest
+    container_name: dozzle-log-viewer
     restart: unless-stopped
     ports:
       - "127.0.0.1:8080:8080"

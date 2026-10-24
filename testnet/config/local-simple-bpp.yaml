@@ -49,7 +49,7 @@ modules:
           id: schemav2validator
           config:
             type: url
-            location: https://raw.githubusercontent.com/beckn/protocol-specifications-v2/refs/tags/core-v2.0.0-lts/api/v2.0.0/beckn.yaml
+            location: https://schema.ion.id/release1/schema/vendored/beckn/api/v2.0.0/beckn.yaml
             cacheTTL: "3600"
             extendedSchema_enabled: "false"
             extendedSchema_cacheTTL: "86400"
@@ -103,7 +103,7 @@ modules:
           id: schemav2validator
           config:
             type: url
-            location: https://raw.githubusercontent.com/beckn/protocol-specifications-v2/refs/tags/core-v2.0.0-lts/api/v2.0.0/beckn.yaml
+            location: https://schema.ion.id/release1/schema/vendored/beckn/api/v2.0.0/beckn.yaml
             cacheTTL: "3600"
             extendedSchema_enabled: "true"
             extendedSchema_cacheTTL: "86400"

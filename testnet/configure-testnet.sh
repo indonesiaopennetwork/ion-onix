@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# Always work relative to the location of configure.sh,
+# Always work relative to the location of configure-testnet.sh,
 # regardless of where the script was invoked from.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 

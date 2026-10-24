@@ -51,9 +51,9 @@ testnet/
 ├── config/          # Configuration files for the adapter
 ├── postman/         # Postman collections for testing
 ├── data/            # Will be created at runtime and used by software to store catalogs etc
-├── docker-compose-testnet.yml  # docker compose file
+├── compose.yaml     # Docker Compose file
 ├── settings.env     # You set your values here
-└── configure.sh/configure.bat     # Run this for values you set to be reflected in various config files.
+└── configure-testnet.sh/configure-testnet.bat  # Apply settings to the configuration files
 
 ```
 
@@ -63,7 +63,7 @@ testnet/
 
 These are the steps in brief. They are detailed below
 1. Clone the repository
-2. Change values in settings.env and run configure.sh/configure.bat (changes config and postman environment)
+2. Change values in settings.env and run configure-testnet.sh/configure-testnet.bat (changes config and postman environment)
 3. Start ngrok
 4. Start docker compose 
 5. Import postman collection and environment. Set environment and run requests.
@@ -80,7 +80,7 @@ cd ion-onix
 ### 2. Configure your settings
 - Add your ngrok auth token and ngrok static domain (dev domain) to the `settings.env` file present in the `testnet` folder.
 - Within the devlabs site on ION central, configure the required Beckn keys (for both Buyer App and Seller App). Then copy those values and replace them in the settings.env file.
-- Now run `configure.sh` file or `configure.bat` file (windows) within the testnet folder. This will configure all the remaining files with the values you copied from devlabs.
+- Now run `configure-testnet.sh` or `configure-testnet.bat` (Windows) within the testnet folder. This will configure all the remaining files with the values you copied from devlabs.
 
 ### 3. Start NGROK
 - Within the `testnet` subfolder run the following command
@@ -91,7 +91,7 @@ ngrok start  --all --config config/ngrok.yml
 ### 4. Start the adapter stack
 - Within the `testnet` subfolder run the following command
 ```bash
-docker compose -f docker-compose-testnet.yml up --build
+docker compose up --build
 ```
 
 This command builds and starts all required services. The first run may take a few minutes to pull and build Docker images.
@@ -101,7 +101,7 @@ This command builds and starts all required services. The first run may take a f
 Once the containers are up, verify the services are healthy:
 
 ```bash
-docker compose -f docker-compose-adapter.yml ps
+docker compose ps
 ```
 
 All services should show a `running` or `healthy` status.
@@ -139,12 +139,12 @@ Once the stack is running and the collection is imported:
 
 The collections are ordered to reflect a typical beckn transaction flow (for example: `discover` → `on_discover` → `select` → `on_select`, and so on). Run them in sequence for an end-to-end test.
 
-**IMPORTANT: Everytime you want to change settings.env and run configure.sh, the older configurations have to be dropped. So run `git checkout .` from the testnet folder so the config files that have changed are reset. After that run the configure.sh file**
+**IMPORTANT: Every time you want to change settings.env and run configure-testnet.sh, the older configurations have to be dropped. So run `git checkout .` from the testnet folder so the config files that have changed are reset. After that run the configure-testnet.sh file.**
 
 ## Running with in-built subscriber details 
 If you do not have devlabs access yet and want to run the network with default values, that is supported. You just need a subset of the above steps. Here are the steps you need to do.
 1. Clone the repository
-2. Run configure.sh/configure.bat (changes config and postman environment with default values)
+2. Run configure-testnet.sh/configure-testnet.bat (changes config and postman environment with default values)
 3. Start docker compose 
 4. Import postman collection and environment. Set environment and run requests.
 
@@ -174,7 +174,7 @@ The devkit simulates a beckn-compliant Buyer App (BAP-Beckn Application Platform
 Check for port conflicts. Inspect logs with:
 
 ```bash
-docker compose -f docker-compose-testnet.yml logs
+docker compose logs
 ```
 
 **Postman requests return connection errors**
@@ -188,7 +188,7 @@ Make sure Docker has sufficient resources allocated (RAM/CPU) and that you have 
 **Stopping the stack**
 
 ```bash
-docker compose -f docker-compose-testnet.yml down
+docker compose down
 ```
 
 ---

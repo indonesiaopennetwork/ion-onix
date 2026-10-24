@@ -9,6 +9,17 @@
 $ git clone https://github.com/indonesiaopennetwork/ion-onix.git`
 ```
 3. Within the catalogPublisher folder, run the `configure-catalog-publisher.sh` script(**Catalog Publisher configuration script**). It asks for the data from step 1 above as well as the private key that was downloaded as part of step 1 above. It also asks for a web accessible address where the catalogs will be published. (e.g `https://criteria-overheat-modular.ngrok-free.dev/beckn`)
+
+   The script configures the staging environment by default:
+   ```bash
+   ./configure-catalog-publisher.sh
+   ```
+
+   To configure the production environment, use:
+   ```bash
+   ./configure-catalog-publisher.sh --env production
+   ```
+
 4. Run docker compose to bring up the adpater and support services. 
 ```
 $ docker compose -f docker-compose-BPPAdapter.yml up --build
