@@ -51,7 +51,7 @@ testnet/
 ├── config/          # Configuration files for the adapter
 ├── postman/         # Postman collections for testing
 ├── data/            # Will be created at runtime and used by software to store catalogs etc
-├── docker-compose-testnet.yml  # docker compose file
+├── compose.yaml     # Docker Compose file
 ├── settings.env     # You set your values here
 └── configure.sh/configure.bat     # Run this for values you set to be reflected in various config files.
 
@@ -91,7 +91,7 @@ ngrok start  --all --config config/ngrok.yml
 ### 4. Start the adapter stack
 - Within the `testnet` subfolder run the following command
 ```bash
-docker compose -f docker-compose-testnet.yml up --build
+docker compose up --build
 ```
 
 This command builds and starts all required services. The first run may take a few minutes to pull and build Docker images.
@@ -101,7 +101,7 @@ This command builds and starts all required services. The first run may take a f
 Once the containers are up, verify the services are healthy:
 
 ```bash
-docker compose -f docker-compose-adapter.yml ps
+docker compose ps
 ```
 
 All services should show a `running` or `healthy` status.
@@ -174,7 +174,7 @@ The devkit simulates a beckn-compliant Buyer App (BAP-Beckn Application Platform
 Check for port conflicts. Inspect logs with:
 
 ```bash
-docker compose -f docker-compose-testnet.yml logs
+docker compose logs
 ```
 
 **Postman requests return connection errors**
@@ -188,7 +188,7 @@ Make sure Docker has sufficient resources allocated (RAM/CPU) and that you have 
 **Stopping the stack**
 
 ```bash
-docker compose -f docker-compose-testnet.yml down
+docker compose down
 ```
 
 ---
