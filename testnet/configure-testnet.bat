@@ -1,7 +1,7 @@
 @echo off
 setlocal
 
-rem Always work relative to the location of configure.bat.
+rem Always work relative to the location of configure-testnet.bat.
 set "SCRIPT_DIR=%~dp0"
 set "SETTINGS_FILE=%SCRIPT_DIR%settings.env"
 set "CONFIG_DIR=%SCRIPT_DIR%config"
