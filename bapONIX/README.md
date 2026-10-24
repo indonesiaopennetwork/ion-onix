@@ -9,6 +9,17 @@
 $ git clone https://github.com/indonesiaopennetwork/ion-onix.git`
 ```
 3. From within the bapONIX folder run the `configure-bap-onix.sh` script(**BAP ONIX configuration script**). It asks for the data from step 1 above as well as the private key that was downloaded as part of step 1 above. 
+
+   The script configures the staging environment by default:
+   ```bash
+   ./configure-bap-onix.sh
+   ```
+
+   To configure the production environment, use:
+   ```bash
+   ./configure-bap-onix.sh --env production
+   ```
+
 4 . Run docker compose to bring up the adpater and support services.
 ```
 $ docker compose -f docker-compose-BAPAdapter.yml up --build

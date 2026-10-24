@@ -9,6 +9,23 @@ CONFIG_FILE="${SCRIPT_DIR}/config/local-simple-catalog-publisher.yaml"
 SAMPLE_CONFIG_FILE="${REPO_ROOT}/common/sample-configs/local-simple-catalog-publisher-sample.yaml"
 BACKUP_ROOT="${SCRIPT_DIR}/backup"
 
+ENVIRONMENT="staging"
+
+if [[ $# -gt 0 ]]; then
+  if [[ $# -ne 2 || "$1" != "--env" || "$2" != "production" ]]; then
+    echo "Usage: $0 [--env production]" >&2
+    exit 1
+  fi
+
+  ENVIRONMENT=$2
+fi
+
+if [[ "$ENVIRONMENT" == "production" ]]; then
+  NETWORK_ID="ion.id/prod"
+else
+  NETWORK_ID="ion.id/staging"
+fi
+
 replace_placeholders() {
   local config_file=$1
   local temporary_file
@@ -22,13 +39,18 @@ replace_placeholders() {
     line=${line//\{\{publicKey\}\}/$PUBLIC_KEY}
     line=${line//\{\{keyId\}\}/$KEY_ID}
     line=${line//\{\{catalogBaseURL\}\}/$CATALOG_BASE_URL}
+    line=${line//\{\{networkId\}\}/$NETWORK_ID}
     printf '%s\n' "$line"
   done < "$config_file" > "$temporary_file"
 
   mv "$temporary_file" "$config_file"
 }
 
-echo "Welcome to Catalog Publisher configuration!"
+if [[ "$ENVIRONMENT" == "production" ]]; then
+  echo "Welcome to Catalog Publisher PRODUCTION configuration!"
+else
+  echo "Welcome to Catalog Publisher configuration!"
+fi
 echo "Enter the BPP/PN configuration details. These will be available in the setup section of the ION Devlabs portal."
 
 read -rp "Subscriber Id: " SUBSCRIBER_ID

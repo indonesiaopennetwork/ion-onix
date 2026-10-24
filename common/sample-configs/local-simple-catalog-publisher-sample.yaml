@@ -47,6 +47,7 @@ modules:
         registry:
           id: dediregistry
           config:
+            allowedNetworkIDs: "{{networkId}}"
             timeout: 10
             retry_max: 3
             retry_wait_min: 100ms
