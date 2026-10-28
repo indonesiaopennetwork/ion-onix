@@ -1,4 +1,4 @@
-# Manual ONIX Configuration
+# Manual Testnet Configuration
 
 Use these changes when configuring the local testnet without running `configure-testnet.sh` or `configure-testnet.bat`. Edit the existing files in place. In the attribute paths, `modules[name=...]` identifies an item in the `modules` list, and braces identify multiple attributes that require the same value.
 
