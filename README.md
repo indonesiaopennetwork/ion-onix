@@ -1,6 +1,6 @@
-## ion-onix Repository
+# ion-onix Repository
 
-### Introduction
+## Introduction
 This repository contain files required to setup ONIX adapters and tools to help developers build applications on ION(Indonesia Open Network). It contains the following folders
 
 - **bapONIX** - Contains the BAP ONIX Adapter. Used to integrate Buyer App into ION network. Run the bapONIX/configure-bap-onix.sh to configure it.
@@ -11,6 +11,8 @@ This repository contain files required to setup ONIX adapters and tools to help 
 
 - **common** - Contains common utilities such as key generator etc. 
 
+## Key documents
+- While it is recommended to use the `configure-bap-onix.sh` and `configure-bpp-onix.sh` files to properly set the configuration values, in case you want to do it manually, refer to the [ion-onix-manual-configuration document](./docs/ion-onix-manual-configuration.md)
 
 ## Running both BAP and BPP individually on the same machine
 - The only complication we will have in this configuration is to make both the docker compose use the same network. There are two options. 
@@ -22,3 +24,4 @@ This repository contain files required to setup ONIX adapters and tools to help 
 3. Modify the docker-compose-BPPAdapter.yml and add `external=true` and remove `driver=bridge` to the beckn_network network
 4. Start BAP docker compose and then BPP docker compose.
 5. When you want to shutdown the two docker compose networks, first bring down the BPP docker compose network and then bring down the BAP docker compose (as the network is owned in BAP)
+
