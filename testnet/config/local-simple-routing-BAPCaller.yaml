@@ -11,6 +11,7 @@ routingRules:
       - cancel
       - rate
       - support
+      - reconcile
   - version: "2.0.0"
     targetType: "url"
     target:

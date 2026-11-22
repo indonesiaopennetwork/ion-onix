@@ -26,7 +26,7 @@ modules:
         maxIdleConns: 1000
         maxIdleConnsPerHost: 200
         idleConnTimeout: 300s
-        responseHeaderTimeout: 5s
+        responseHeaderTimeout: 30s
       plugins:
         registry:
           id: dediregistry
@@ -49,12 +49,14 @@ modules:
           id: schemav2validator
           config:
             type: url
-            location: https://schema.ion.id/release1/schema/vendored/beckn/api/v2.0.0/beckn.yaml
+            location: https://schema.ion.id/release1/schema/core/api/v2.0.0/ion-beckn.yaml
+            auxiliaryTypes: "url"
+            auxiliaryLocations: "https://schema.ion.id/release1/schema/core/api/v2.0.0/ion-additional.yaml"
             cacheTTL: "3600"
             extendedSchema_enabled: "false"
             extendedSchema_cacheTTL: "86400"
             extendedSchema_maxCacheSize: "100"
-            extendedSchema_downloadTimeout: "30"
+            extendedSchema_downloadTimeout: "120"
             extendedSchema_allowedDomains: "raw.githubusercontent.com,schema.beckn.io,schema.ion.id"
         cache:
           id: cache
@@ -80,7 +82,7 @@ modules:
         maxIdleConns: 1000
         maxIdleConnsPerHost: 200
         idleConnTimeout: 300s
-        responseHeaderTimeout: 5s
+        responseHeaderTimeout: 30s
       plugins:
         registry:
           id: dediregistry
@@ -103,12 +105,14 @@ modules:
           id: schemav2validator
           config:
             type: url
-            location: https://schema.ion.id/release1/schema/vendored/beckn/api/v2.0.0/beckn.yaml
+            location: https://schema.ion.id/release1/schema/core/api/v2.0.0/ion-beckn.yaml
+            auxiliaryTypes: "url"
+            auxiliaryLocations: "https://schema.ion.id/release1/schema/core/api/v2.0.0/ion-additional.yaml"
             cacheTTL: "3600"
             extendedSchema_enabled: "true"
             extendedSchema_cacheTTL: "86400"
             extendedSchema_maxCacheSize: "100"
-            extendedSchema_downloadTimeout: "30"
+            extendedSchema_downloadTimeout: "120"
             extendedSchema_allowedDomains: "raw.githubusercontent.com,schema.beckn.io,schema.ion.id"
         cache:
           id: cache
@@ -150,7 +154,7 @@ modules:
         maxIdleConns: 1000
         maxIdleConnsPerHost: 200
         idleConnTimeout: 300s
-        responseHeaderTimeout: 5s
+        responseHeaderTimeout: 30s
       plugins:
         # registry+cache exist only to satisfy keyManager's constructor
         # (KeyManagerProvider.New always requires a RegistryLookup); the
@@ -208,7 +212,7 @@ modules:
             # compactionChangeCountThreshold: "20"
             # compactionSizeRatioThreshold: "0.5"
         # Validates submitted catalogs before they're published against
-        # catalog/publish's real schema (protocol-specifications-v2 beckn.yaml
+        # catalog/publish's real schema (protocol-specifications-v2 ion-beckn.yaml
         # via becknConstants). checkPolicy left out -- not needed yet.
         schemaValidator:
           id: schemav2validator
